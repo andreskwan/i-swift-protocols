@@ -1,5 +1,4 @@
 //: Playground - noun: a place where people can play
-
 import UIKit
 
 var str = "Hello, playground"
@@ -17,7 +16,29 @@ protocol RandomNumberGenerator {
 protocol Togglable {
     mutating func toggle()
 }
+
 println("Before implement classes")
+
+enum OnOffSwitch: Togglable {
+    case Off, On
+    mutating func toggle() {
+        switch self {
+        case Off:
+            self = On
+            println("On")
+            //TODO: break are available? should be.
+        case On:
+            self = Off
+            println("Off")
+        }
+    }
+}
+
+var lightSwitch = OnOffSwitch.Off
+lightSwitch.toggle()
+//TODO: how to identify the state of the switch?
+//this is not working
+lightSwitch != OnOffSwitch.On ? println("On") : println("Off")
 
 class LinearCongruentialGenerator: NSObject, RandomNumberGenerator, FullyName {
     let fullName : String
@@ -58,27 +79,12 @@ class Dice {
         return Int(generator.random() * Double(sides) + 1)
     }
 }
-//
-let dice = Dice(sides: 6, generator: generator)
-println((dice.roll()))
 
-//enum OnOffSwitch: Togglable {
-//    case Off, On
-//    mutating func toggle() {
-//        switch self {
-//        case Off:
-//            self = On
-//            println("On")
-//            //TODO: break are available? should be.
-//        case On:
-//            self = Off
-//            println("Off")
-//        }
-//    }
-//}
-//
-//var lightSwitch = OnOffSwitch.Off
-//lightSwitch.toggle()
-////TODO: how to identify the state of the switch?
-//lightSwitch != OnOffSwitch.On ? println("On") : println("Off")
+let dice6sides = Dice(sides: 6, generator: generator)
+
+for _ in 1...5 {
+    println("Random dice roll is: \(dice6sides.roll())")
+}
+
+
 
