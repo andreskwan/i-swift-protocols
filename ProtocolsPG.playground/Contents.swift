@@ -58,9 +58,9 @@ class Dice {
         return Int(generator.random() * Double(sides) + 1)
     }
 }
-
+//
 let dice = Dice(sides: 6, generator: generator)
-println(/(dice.roll()))
+println((dice.roll()))
 
 //enum OnOffSwitch: Togglable {
 //    case Off, On
