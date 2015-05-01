@@ -17,6 +17,29 @@ protocol Togglable {
     mutating func toggle()
 }
 
+class Dice {
+    let sides : Int
+    let generator : RandomNumberGenerator
+    init(sides: Int, generator: RandomNumberGenerator){
+        self.sides = sides
+        self.generator = generator
+    }
+    func roll() -> Int {
+        return Int(generator.random() * Double(sides) + 1)
+    }
+}
+
+protocol DiceGame {
+    var dice: Dice { get }
+    func play()
+}
+
+protocol DiceGameDelegate {
+    func gameDidStart(game: DiceGame)
+    func game(game: DiceGame, didStartNewTurnWithDiceRoll diceRoll: Int)
+    func gameDidEnd(game: DiceGame)
+}
+
 println("Before implement classes")
 
 enum OnOffSwitch: Togglable {
@@ -68,23 +91,15 @@ println("Here's a random number: \(generator.random())")
 //println("Here's a random number: \(generator!.random())")
 println("\(generator.fullName)")
 
-class Dice {
-    let sides : Int
-    let generator : RandomNumberGenerator
-    init(sides: Int, generator: RandomNumberGenerator){
-        self.sides = sides
-        self.generator = generator
-    }
-    func roll() -> Int {
-        return Int(generator.random() * Double(sides) + 1)
-    }
-}
 
 let dice6sides = Dice(sides: 6, generator: generator)
 
 for _ in 1...5 {
     println("Random dice roll is: \(dice6sides.roll())")
 }
+
+
+
 
 
 
